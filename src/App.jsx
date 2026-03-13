@@ -474,8 +474,6 @@ export default function Dashboard() {
   // RENDER: DETALLE
   // ============================================================
   const renderDetalle = () => {
-    let prevCan = "";
-
     return (
       <div>
         {/* #3 Top problem chains */}
@@ -518,38 +516,48 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {sortedCadenas.map(cadena => {
-                const canal = CANAL_MAP[cadena];
-                const showC = canal !== prevCan;
-                prevCan = canal;
-                const d = sourceData[cadena];
-                const cCount = filteredCadenas.filter(c => CANAL_MAP[c] === canal).length;
+              {(() => {
+                let lastVisibleCanal = "";
+                return sortedCadenas.map(cadena => {
+                  const canal = CANAL_MAP[cadena];
+                  const d = sourceData[cadena];
 
-                if ((selectedEmb === "Embonor" && cadena === "EUREST/COMPASS") || (selectedEmb === "Andina" && cadena === "ENJOY")) {
-                  return null;
-                }
-                if (!d) return null;
+                  if ((selectedEmb === "Embonor" && cadena === "EUREST/COMPASS") || (selectedEmb === "Andina" && cadena === "ENJOY")) {
+                    return null;
+                  }
+                  if (!d) return null;
 
-                const cfNot = Math.round(d.cf_sol - d.cf);
-                const hm = getHeatmap(d.fr);
-                const isH = hoveredRow === cadena;
+                  const showC = canal !== lastVisibleCanal;
+                  lastVisibleCanal = canal;
 
-                return (
-                  <tr key={cadena} onMouseEnter={() => setHoveredRow(cadena)} onMouseLeave={() => setHoveredRow(null)}
-                    style={{ borderBottom: "1px solid " + T.tableBorder, background: isH ? T.tableHover : "transparent", transition: "background 0.15s" }}>
-                    {showC && <td style={{ padding: "9px 8px", fontWeight: 600, color: T.textMuted, verticalAlign: "top", fontSize: 11 }} rowSpan={cCount}>{canal}</td>}
-                    <td style={{ padding: "9px 8px", fontWeight: 500, color: T.text }}>{cadena}</td>
-                    <td style={{ padding: "9px 8px", textAlign: "right", color: T.textMuted, fontVariantNumeric: "tabular-nums" }}>{fmt(d.cf_sol)}</td>
-                    <td style={{ padding: "9px 8px", textAlign: "right", color: T.textMuted, fontVariantNumeric: "tabular-nums" }}>{fmt(d.cf)}</td>
-                    <td style={{ padding: "9px 8px", textAlign: "right", fontWeight: 600, color: "#dc2626", fontVariantNumeric: "tabular-nums" }}>{fmt(cfNot)}</td>
-                    <td style={{ padding: "5px 8px", textAlign: "center" }}>
-                      <span style={{ display: "inline-block", padding: "3px 12px", borderRadius: 6, fontWeight: 700, fontSize: 12.5, background: hm.bg, color: hm.fg, minWidth: 56 }}>{fmtP(d.fr)}</span>
-                    </td>
-                    <td style={{ padding: "9px 8px", textAlign: "center", color: "#dc2626", fontWeight: 600 }}>{fmtP(d.quiebre)}</td>
-                    <td style={{ padding: "9px 8px", textAlign: "center", color: "#F59E0B", fontWeight: 600 }}>{fmtP(d.retorno)}</td>
-                  </tr>
-                );
-              })}
+                  // Count visible rows for this canal
+                  const cCount = filteredCadenas.filter(c => {
+                    if (selectedEmb === "Embonor" && c === "EUREST/COMPASS") return false;
+                    if (selectedEmb === "Andina" && c === "ENJOY") return false;
+                    return CANAL_MAP[c] === canal && sourceData[c];
+                  }).length;
+
+                  const cfNot = Math.round(d.cf_sol - d.cf);
+                  const hm = getHeatmap(d.fr);
+                  const isH = hoveredRow === cadena;
+
+                  return (
+                    <tr key={cadena} onMouseEnter={() => setHoveredRow(cadena)} onMouseLeave={() => setHoveredRow(null)}
+                      style={{ borderBottom: "1px solid " + T.tableBorder, background: isH ? T.tableHover : "transparent", transition: "background 0.15s" }}>
+                      {showC && <td style={{ padding: "9px 8px", fontWeight: 600, color: T.textMuted, verticalAlign: "top", fontSize: 11 }} rowSpan={cCount}>{canal}</td>}
+                      <td style={{ padding: "9px 8px", fontWeight: 500, color: T.text }}>{cadena}</td>
+                      <td style={{ padding: "9px 8px", textAlign: "right", color: T.textMuted, fontVariantNumeric: "tabular-nums" }}>{fmt(d.cf_sol)}</td>
+                      <td style={{ padding: "9px 8px", textAlign: "right", color: T.textMuted, fontVariantNumeric: "tabular-nums" }}>{fmt(d.cf)}</td>
+                      <td style={{ padding: "9px 8px", textAlign: "right", fontWeight: 600, color: "#dc2626", fontVariantNumeric: "tabular-nums" }}>{fmt(cfNot)}</td>
+                      <td style={{ padding: "5px 8px", textAlign: "center" }}>
+                        <span style={{ display: "inline-block", padding: "3px 12px", borderRadius: 6, fontWeight: 700, fontSize: 12.5, background: hm.bg, color: hm.fg, minWidth: 56 }}>{fmtP(d.fr)}</span>
+                      </td>
+                      <td style={{ padding: "9px 8px", textAlign: "center", color: "#dc2626", fontWeight: 600 }}>{fmtP(d.quiebre)}</td>
+                      <td style={{ padding: "9px 8px", textAlign: "center", color: "#F59E0B", fontWeight: 600 }}>{fmtP(d.retorno)}</td>
+                    </tr>
+                  );
+                });
+              })()}
             </tbody>
           </table>
         </div>
@@ -753,7 +761,7 @@ export default function Dashboard() {
   return (
     <div style={{ minHeight: "100vh", background: T.bg, fontFamily: "'DM Sans', 'Segoe UI', system-ui, sans-serif", color: T.text }}>
       {/* Header */}
-      <div style={{ background: T.headerBg, padding: "22px 36px 16px", color: "white", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ background: "#030712", padding: "22px 36px 16px", color: "white", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <div style={{ width: 40, height: 40, borderRadius: 10, background: "#dc2626", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, fontWeight: 900, color: "white" }}>KO</div>
           <div>
