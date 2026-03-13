@@ -765,7 +765,7 @@ export default function Dashboard() {
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <div style={{ width: 40, height: 40, borderRadius: 10, background: "#dc2626", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, fontWeight: 900, color: "white" }}>KO</div>
           <div>
-            <h1 style={{ margin: 0, fontSize: 21, fontWeight: 800, letterSpacing: "-0.01em" }}>Dashboard Fill Rate — Canal On Premise</h1>
+            <h1 style={{ margin: 0, fontSize: 21, fontWeight: 800, letterSpacing: "-0.01em" }}>Dashboard Customer Service — Canal On Premise</h1>
             <p style={{ margin: "1px 0 0", fontSize: 12, color: "#94a3b8" }}>Andina · Embonor · Total Chile — 2026</p>
           </div>
         </div>
