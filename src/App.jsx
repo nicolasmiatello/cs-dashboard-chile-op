@@ -712,8 +712,50 @@ export default function Dashboard() {
           { key: "rChi", name: "Retorno Total Chile", color: "#881337" },
         ];
 
+    // YTD: sum CF across all months (not average)
+    const ytd = (() => {
+      let eSol = 0, eCf = 0, aSol = 0, aCf = 0;
+      MESES.forEach(mes => {
+        const embMes = RAW.embonor[mes] || {};
+        const andMes = RAW.andina[mes] || {};
+        cadList.forEach(c => {
+          if (embMes[c]) { eSol += embMes[c].cf_sol; eCf += embMes[c].cf; }
+          if (andMes[c]) { aSol += andMes[c].cf_sol; aCf += andMes[c].cf; }
+        });
+      });
+      const tSol = eSol + aSol, tCf = eCf + aCf;
+      return {
+        emb: { sol: eSol, cf: eCf, fr: eSol > 0 ? +(eCf / eSol * 100).toFixed(1) : 0 },
+        and: { sol: aSol, cf: aCf, fr: aSol > 0 ? +(aCf / aSol * 100).toFixed(1) : 0 },
+        chi: { sol: tSol, cf: tCf, fr: tSol > 0 ? +(tCf / tSol * 100).toFixed(1) : 0 },
+      };
+    })();
+
     return (
       <div>
+        {/* YTD 2026 Summary */}
+        <div style={{ background: T.cardBg, borderRadius: 16, padding: "18px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", marginBottom: 22 }}>
+          <h3 style={{ margin: "0 0 14px", fontSize: 15, fontWeight: 700, color: T.text }}>Fill Rate YTD 2026</h3>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+            {[
+              { label: "Embonor", data: ytd.emb, color: "#2563eb" },
+              { label: "Andina", data: ytd.and, color: "#059669" },
+              { label: "Total Chile", data: ytd.chi, color: "#881337" },
+            ].map(({ label, data, color }) => (
+              <div key={label} style={{ flex: 1, minWidth: 200, padding: "14px 18px", borderRadius: 12, borderLeft: `4px solid ${color}`, background: T.bg }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: T.text, textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: 6 }}>{label}</div>
+                <div style={{ fontSize: 28, fontWeight: 800, color, lineHeight: 1 }}>{data.fr}%</div>
+                <div style={{ fontSize: 11, color: T.textMuted, marginTop: 6 }}>
+                  {fmt(data.cf)} / {fmt(data.sol)} CF
+                </div>
+                <div style={{ fontSize: 11, color: "#dc2626", marginTop: 2 }}>
+                  {fmt(Math.round(data.sol - data.cf))} CF no entregadas
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div style={{ background: T.cardBg, borderRadius: 16, padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", marginBottom: 22 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 18 }}>
             <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: T.text }}>Evolución Fill Rate Mensual</h3>
