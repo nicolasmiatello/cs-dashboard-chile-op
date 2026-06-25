@@ -16,15 +16,13 @@ const CANAL_MAP = {
   "SUBWAY": "Fast Food",
   "TARRAGONA": "Fast Food",
   "OXXO": "C Stores",
-  "OK MARKET": "C Stores",
-  "CINE HOYTS": "Entretención",
   "CINEMARK": "Entretención",
   "ENJOY": "Entretención",
   "PAPA JOHNS": "Pizzería",
 };
 
 const CANALES = ["Catering", "Petroleras", "Fast Food", "C Stores", "Entretención", "Pizzería"];
-const MESES = ["Enero", "Febrero", "Marzo", "Abril"];
+const MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"];
 const ALL_CADENAS = Object.keys(CANAL_MAP);
 const TARGETS = { fr: 95.0, quiebre: 2.0, retorno: 1.5 };
 
@@ -41,8 +39,6 @@ const RAW = {
       "SUBWAY": { cf_sol: 11060, cf: 10563, fr: 95.5, quiebre: 2.7, retorno: 1.7 },
       "TARRAGONA": { cf_sol: 4785, cf: 4643, fr: 97.0, quiebre: 1.7, retorno: 1.3 },
       "OXXO": { cf_sol: 18260, cf: 16899, fr: 92.5, quiebre: 5.8, retorno: 1.6 },
-      "OK MARKET": { cf_sol: 9115, cf: 8494, fr: 93.2, quiebre: 5.0, retorno: 1.8 },
-      "CINE HOYTS": { cf_sol: 1673, cf: 1571, fr: 93.9, quiebre: 5.9, retorno: 0.2 },
       "CINEMARK": { cf_sol: 2944, cf: 2669, fr: 90.7, quiebre: 3.7, retorno: 5.6 },
       "ENJOY": { cf_sol: 13404, cf: 13023, fr: 97.2, quiebre: 2.6, retorno: 0.3 },
       "PAPA JOHNS": { cf_sol: 22723, cf: 22396, fr: 98.6, quiebre: 0.8, retorno: 0.6 },
@@ -58,8 +54,6 @@ const RAW = {
       "SUBWAY": { cf_sol: 10428, cf: 9895, fr: 94.9, quiebre: 2.7, retorno: 1.3 },
       "TARRAGONA": { cf_sol: 5394, cf: 5180, fr: 96.0, quiebre: 1.6, retorno: 2.4 },
       "OXXO": { cf_sol: 19036, cf: 17681, fr: 92.9, quiebre: 4.6, retorno: 2.3 },
-      "OK MARKET": { cf_sol: 8517, cf: 7875, fr: 92.5, quiebre: 3.5, retorno: 4.1 },
-      "CINE HOYTS": { cf_sol: 1021, cf: 971, fr: 95.1, quiebre: 4.9, retorno: 0.0 },
       "CINEMARK": { cf_sol: 2053, cf: 1935, fr: 94.3, quiebre: 5.2, retorno: 0.6 },
       "ENJOY": { cf_sol: 12120, cf: 11979, fr: 98.8, quiebre: 0.5, retorno: 0.6 },
       "PAPA JOHNS": { cf_sol: 23865, cf: 23505, fr: 98.5, quiebre: 0.6, retorno: 0.9 },
@@ -75,8 +69,6 @@ const RAW = {
       "SUBWAY": { cf_sol: 11371, cf: 11083, fr: 97.5, quiebre: 1.8, retorno: 0.8 },
       "TARRAGONA": { cf_sol: 7774, cf: 7523, fr: 96.8, quiebre: 1.7, retorno: 1.5 },
       "OXXO": { cf_sol: 18413, cf: 17579, fr: 95.5, quiebre: 3.5, retorno: 1.5 },
-      "OK MARKET": { cf_sol: 8004, cf: 7553, fr: 94.4, quiebre: 2.4, retorno: 3.2 },
-      "CINE HOYTS": { cf_sol: 1569, cf: 1501, fr: 95.7, quiebre: 4.1, retorno: 0.2 },
       "CINEMARK": { cf_sol: 3551, cf: 3405, fr: 95.9, quiebre: 3.1, retorno: 1.0 },
       "ENJOY": { cf_sol: 9297, cf: 9055, fr: 97.4, quiebre: 1.1, retorno: 1.5 },
       "PAPA JOHNS": { cf_sol: 21857, cf: 21675, fr: 99.2, quiebre: 0.3, retorno: 0.6 },
@@ -92,11 +84,24 @@ const RAW = {
       "SUBWAY": { cf_sol: 10696, cf: 9931, fr: 92.8, quiebre: 1.5, retorno: 5.4 },
       "TARRAGONA": { cf_sol: 5901, cf: 5577, fr: 94.5, quiebre: 2.4, retorno: 3.1 },
       "OXXO": { cf_sol: 18219, cf: 17198, fr: 94.4, quiebre: 1.4, retorno: 4.5 },
-      "OK MARKET": { cf_sol: 6284, cf: 5916, fr: 94.1, quiebre: 2.1, retorno: 3.8 },
-      "CINE HOYTS": { cf_sol: 1240, cf: 1211, fr: 97.7, quiebre: 1.8, retorno: 0.6 },
       "CINEMARK": { cf_sol: 9683, cf: 9018, fr: 93.1, quiebre: 3.2, retorno: 3.7 },
       "ENJOY": { cf_sol: 9803, cf: 9541, fr: 97.3, quiebre: 1.6, retorno: 1.1 },
       "PAPA JOHNS": { cf_sol: 21404, cf: 20941, fr: 97.8, quiebre: 0.4, retorno: 1.7 },
+    },
+    Mayo: {
+      "SODEXO": { cf_sol: 116865, cf: 113328, fr: 97.0, quiebre: 1.6, retorno: 1.4 },
+      "COPEC PUNTO": { cf_sol: 87001, cf: 84676, fr: 97.3, quiebre: 0.8, retorno: 1.9 },
+      "ENEX/SHELL": { cf_sol: 37378, cf: 36502, fr: 97.7, quiebre: 1.2, retorno: 1.1 },
+      "PETROBRAS": { cf_sol: 38428, cf: 37334, fr: 97.2, quiebre: 1.3, retorno: 1.5 },
+      "DOGGIS": { cf_sol: 6527, cf: 5588, fr: 85.6, quiebre: 10.2, retorno: 4.3 },
+      "JUAN MAESTRO": { cf_sol: 3343, cf: 3060, fr: 91.5, quiebre: 6.7, retorno: 1.7 },
+      "MC DONALDS": { cf_sol: 6107, cf: 5989, fr: 98.1, quiebre: 1.2, retorno: 0.8 },
+      "SUBWAY": { cf_sol: 9888, cf: 9608, fr: 97.2, quiebre: 1.4, retorno: 1.4 },
+      "TARRAGONA": { cf_sol: 4975, cf: 4859, fr: 97.7, quiebre: 1.4, retorno: 0.9 },
+      "OXXO": { cf_sol: 18950, cf: 18269, fr: 96.4, quiebre: 1.4, retorno: 2.1 },
+      "CINEMARK": { cf_sol: 6436, cf: 5570, fr: 86.5, quiebre: 0.4, retorno: 13.0 },
+      "ENJOY": { cf_sol: 11643, cf: 11526, fr: 99.0, quiebre: 0.5, retorno: 0.1 },
+      "PAPA JOHNS": { cf_sol: 21639, cf: 21479, fr: 99.3, quiebre: 0.3, retorno: 0.4 },
     },
   },
   andina: {
@@ -112,8 +117,6 @@ const RAW = {
       "SUBWAY": { cf_sol: 14776, cf: 14368, fr: 97.2, quiebre: 0.2, retorno: 2.2 },
       "TARRAGONA": { cf_sol: 7861, cf: 7640, fr: 97.2, quiebre: 0.9, retorno: 1.5 },
       "OXXO": { cf_sol: 137560, cf: 127746, fr: 92.9, quiebre: 1.5, retorno: 3.8 },
-      "OK MARKET": { cf_sol: 32283, cf: 30359, fr: 94.0, quiebre: 1.9, retorno: 2.8 },
-      "CINE HOYTS": { cf_sol: 4399, cf: 4325, fr: 98.3, quiebre: 0.6, retorno: 0.9 },
       "CINEMARK": { cf_sol: 4505, cf: 4408, fr: 97.9, quiebre: 0.7, retorno: 1.5 },
       "PAPA JOHNS": { cf_sol: 31437, cf: 30499, fr: 97.0, quiebre: 1.3, retorno: 1.6 },
     },
@@ -129,8 +132,6 @@ const RAW = {
       "SUBWAY": { cf_sol: 12178, cf: 11827, fr: 97.1, quiebre: 0.4, retorno: 1.3 },
       "TARRAGONA": { cf_sol: 6530, cf: 6247, fr: 95.7, quiebre: 1.0, retorno: 2.8 },
       "OXXO": { cf_sol: 123245, cf: 116827, fr: 94.8, quiebre: 0.8, retorno: 3.6 },
-      "OK MARKET": { cf_sol: 29595, cf: 27776, fr: 93.9, quiebre: 0.6, retorno: 2.9 },
-      "CINE HOYTS": { cf_sol: 4149, cf: 4065, fr: 98.0, quiebre: 0.9, retorno: 0.9 },
       "CINEMARK": { cf_sol: 3474, cf: 3415, fr: 98.3, quiebre: 0.5, retorno: 1.0 },
       "PAPA JOHNS": { cf_sol: 31910, cf: 31407, fr: 98.4, quiebre: 0.5, retorno: 0.7 },
     },
@@ -146,8 +147,6 @@ const RAW = {
       "SUBWAY": { cf_sol: 13029, cf: 12651, fr: 97.1, quiebre: 0.5, retorno: 2.3 },
       "TARRAGONA": { cf_sol: 12099, cf: 11814, fr: 97.6, quiebre: 0.4, retorno: 1.8 },
       "OXXO": { cf_sol: 158314, cf: 151810, fr: 95.9, quiebre: 0.7, retorno: 2.8 },
-      "OK MARKET": { cf_sol: 37506, cf: 36611, fr: 97.6, quiebre: 0.7, retorno: 1.3 },
-      "CINE HOYTS": { cf_sol: 4473, cf: 4413, fr: 98.7, quiebre: 0.5, retorno: 0.5 },
       "CINEMARK": { cf_sol: 4191, cf: 4150, fr: 99.0, quiebre: 0.4, retorno: 0.6 },
       "PAPA JOHNS": { cf_sol: 30897, cf: 29930, fr: 96.9, quiebre: 1.0, retorno: 1.9 },
     },
@@ -163,10 +162,23 @@ const RAW = {
       "SUBWAY": { cf_sol: 12666, cf: 12330, fr: 97.3, quiebre: 0.5, retorno: 2.2 },
       "TARRAGONA": { cf_sol: 6768, cf: 6594, fr: 97.4, quiebre: 0.6, retorno: 2.0 },
       "OXXO": { cf_sol: 141836, cf: 136590, fr: 96.3, quiebre: 1.0, retorno: 2.7 },
-      "OK MARKET": { cf_sol: 32229, cf: 31469, fr: 97.6, quiebre: 0.9, retorno: 1.5 },
-      "CINE HOYTS": { cf_sol: 7160, cf: 6952, fr: 97.1, quiebre: 2.1, retorno: 0.8 },
       "CINEMARK": { cf_sol: 14363, cf: 14113, fr: 98.3, quiebre: 1.0, retorno: 0.8 },
       "PAPA JOHNS": { cf_sol: 32419, cf: 31526, fr: 97.2, quiebre: 0.9, retorno: 1.9 },
+    },
+    Mayo: {
+      "EUREST/COMPASS": { cf_sol: 153590, cf: 150921, fr: 98.3, quiebre: 1.1, retorno: 0.6 },
+      "SODEXO": { cf_sol: 202011, cf: 198402, fr: 98.2, quiebre: 1.0, retorno: 0.8 },
+      "COPEC PUNTO": { cf_sol: 180818, cf: 176609, fr: 97.7, quiebre: 0.9, retorno: 1.4 },
+      "ENEX/SHELL": { cf_sol: 67637, cf: 65564, fr: 96.9, quiebre: 1.1, retorno: 1.9 },
+      "PETROBRAS": { cf_sol: 85241, cf: 83578, fr: 98.0, quiebre: 1.1, retorno: 0.9 },
+      "DOGGIS": { cf_sol: 5403, cf: 5301, fr: 98.1, quiebre: 0.9, retorno: 1.0 },
+      "JUAN MAESTRO": { cf_sol: 4115, cf: 4036, fr: 98.1, quiebre: 0.7, retorno: 1.2 },
+      "MC DONALDS": { cf_sol: 9702, cf: 9507, fr: 98.0, quiebre: 1.6, retorno: 0.4 },
+      "SUBWAY": { cf_sol: 11326, cf: 11029, fr: 97.4, quiebre: 0.6, retorno: 2.1 },
+      "TARRAGONA": { cf_sol: 6619, cf: 6443, fr: 97.4, quiebre: 1.0, retorno: 1.7 },
+      "OXXO": { cf_sol: 122375, cf: 117018, fr: 95.6, quiebre: 1.6, retorno: 2.8 },
+      "CINEMARK": { cf_sol: 8324, cf: 8183, fr: 98.3, quiebre: 1.4, retorno: 0.3 },
+      "PAPA JOHNS": { cf_sol: 33347, cf: 32495, fr: 97.4, quiebre: 1.7, retorno: 0.8 },
     },
   },
 };
@@ -260,7 +272,7 @@ const BarLabel = (props) => {
 // ============================================================
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("resumen");
-  const [selectedMes, setSelectedMes] = useState("Abril");
+  const [selectedMes, setSelectedMes] = useState("Mayo");
   const [selectedCanal, setSelectedCanal] = useState("Todos");
   const [selectedEmb, setSelectedEmb] = useState("Total Chile");
   const [selectedCadena, setSelectedCadena] = useState("Todas");
