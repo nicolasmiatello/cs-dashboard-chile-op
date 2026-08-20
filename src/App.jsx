@@ -22,7 +22,7 @@ const CANAL_MAP = {
 };
 
 const CANALES = ["Catering", "Petroleras", "Fast Food", "C Stores", "Entretención", "Pizzería"];
-const MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"];
+const MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"];
 const ALL_CADENAS = Object.keys(CANAL_MAP);
 const TARGETS = { fr: 95.0, quiebre: 2.0, retorno: 1.5 };
 
@@ -118,6 +118,21 @@ const RAW = {
       "ENJOY": { cf_sol: 12026, cf: 11489, fr: 95.5, quiebre: 2.8, retorno: 1.7 },
       "PAPA JOHNS": { cf_sol: 28777, cf: 28158, fr: 97.8, quiebre: 1.6, retorno: 0.6 },
     },
+    Julio: {
+      "SODEXO": { cf_sol: 125057, cf: 121445, fr: 97.1, quiebre: 1.8, retorno: 1.1 },
+      "COPEC PUNTO": { cf_sol: 88391, cf: 84614, fr: 95.7, quiebre: 2.3, retorno: 2.0 },
+      "ENEX/SHELL": { cf_sol: 40237, cf: 38352, fr: 95.3, quiebre: 2.4, retorno: 2.3 },
+      "PETROBRAS": { cf_sol: 40848, cf: 38473, fr: 94.2, quiebre: 4.0, retorno: 1.8 },
+      "DOGGIS": { cf_sol: 6415, cf: 5350, fr: 83.4, quiebre: 12.0, retorno: 4.6 },
+      "JUAN MAESTRO": { cf_sol: 3600, cf: 3144, fr: 87.3, quiebre: 8.4, retorno: 4.3 },
+      "MC DONALDS": { cf_sol: 5950, cf: 5743, fr: 96.5, quiebre: 2.1, retorno: 1.4 },
+      "SUBWAY": { cf_sol: 10633, cf: 9865, fr: 92.8, quiebre: 3.0, retorno: 4.2 },
+      "TARRAGONA": { cf_sol: 8762, cf: 7718, fr: 88.1, quiebre: 10.0, retorno: 1.9 },
+      "OXXO": { cf_sol: 21042, cf: 19579, fr: 93.0, quiebre: 3.5, retorno: 3.5 },
+      "CINEMARK": { cf_sol: 8182, cf: 7903, fr: 96.6, quiebre: 3.1, retorno: 0.4 },
+      "ENJOY": { cf_sol: 14408, cf: 13618, fr: 94.5, quiebre: 4.5, retorno: 1.0 },
+      "PAPA JOHNS": { cf_sol: 33396, cf: 32122, fr: 96.2, quiebre: 2.9, retorno: 0.9 },
+    },
   },
   andina: {
     Enero: {
@@ -209,6 +224,21 @@ const RAW = {
       "OXXO": { cf_sol: 127197, cf: 123273, fr: 96.9, quiebre: 1.4, retorno: 1.7 },
       "CINEMARK": { cf_sol: 12707, cf: 12480, fr: 98.2, quiebre: 1.0, retorno: 0.8 },
       "PAPA JOHNS": { cf_sol: 43001, cf: 42274, fr: 98.3, quiebre: 1.4, retorno: 0.3 },
+    },
+    Julio: {
+      "EUREST/COMPASS": { cf_sol: 151801, cf: 146890, fr: 96.8, quiebre: 2.7, retorno: 0.6 },
+      "SODEXO": { cf_sol: 205690, cf: 196870, fr: 95.7, quiebre: 1.9, retorno: 2.4 },
+      "COPEC PUNTO": { cf_sol: 172959, cf: 167042, fr: 96.6, quiebre: 1.5, retorno: 1.9 },
+      "ENEX/SHELL": { cf_sol: 65875, cf: 62945, fr: 95.6, quiebre: 2.1, retorno: 2.3 },
+      "PETROBRAS": { cf_sol: 79510, cf: 76056, fr: 95.7, quiebre: 1.6, retorno: 2.8 },
+      "DOGGIS": { cf_sol: 4936, cf: 4752, fr: 96.3, quiebre: 1.0, retorno: 2.8 },
+      "JUAN MAESTRO": { cf_sol: 4759, cf: 4500, fr: 94.6, quiebre: 1.3, retorno: 4.1 },
+      "MC DONALDS": { cf_sol: 9369, cf: 9192, fr: 98.1, quiebre: 0.7, retorno: 1.2 },
+      "SUBWAY": { cf_sol: 11753, cf: 11121, fr: 94.6, quiebre: 1.0, retorno: 4.4 },
+      "TARRAGONA": { cf_sol: 11489, cf: 10962, fr: 95.4, quiebre: 2.7, retorno: 1.9 },
+      "OXXO": { cf_sol: 136284, cf: 127508, fr: 93.6, quiebre: 2.7, retorno: 3.7 },
+      "CINEMARK": { cf_sol: 11159, cf: 10876, fr: 97.5, quiebre: 2.0, retorno: 0.6 },
+      "PAPA JOHNS": { cf_sol: 44435, cf: 43034, fr: 96.8, quiebre: 2.0, retorno: 1.2 },
     },
   },
 };
@@ -302,7 +332,7 @@ const BarLabel = (props) => {
 // ============================================================
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("resumen");
-  const [selectedMes, setSelectedMes] = useState("Junio");
+  const [selectedMes, setSelectedMes] = useState("Julio");
   const [selectedCanal, setSelectedCanal] = useState("Todos");
   const [selectedEmb, setSelectedEmb] = useState("Total Chile");
   const [selectedCadena, setSelectedCadena] = useState("Todas");
